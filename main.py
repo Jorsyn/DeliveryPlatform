@@ -10,7 +10,7 @@ print("Google chrome webdriver version 100 it attached to this project")
 
 landingPage = "https://dashboard.sandbox.stuart.com/"
 pickup_location = "58 Avenue Simon Bolivar, 75019 Paris"
-dropoff_location = "14 Avenue Simon Bolivar, 75019 Paris"
+dropoff_location = "3 Av. Simon Bolivar, 75020 Paris, France"
 
 
 # TODO remove password and email from here due to security issues in github?
@@ -45,6 +45,8 @@ class Tests(unittest.TestCase):
         self.page.choose_happy_path()
         self.page.input_pickup_location(pickup_location)
         self.page.input_dropoff_location(dropoff_location)
+        self.page.select_mode_bike()
+        self.page.start_request()
 
         time.sleep(10)
         print('Test case 1 finished successfully')

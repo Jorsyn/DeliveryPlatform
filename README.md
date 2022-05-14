@@ -1,6 +1,6 @@
-# DeliveryPlatform
+# HotelSearchAutomation
 
-A project that logs into and starts a delivery request in an online delivery platform
+A project that searches for hotels and lists number of different rooms
 
 
 Prerequisites:
@@ -13,7 +13,7 @@ Place the webdriver in your computer's PATH or add the location of webdriver to 
 
 
 How to use:
-1. cd into the DeliveryPlatform folder and run:
+1. cd into the HotelSearchAutomation folder and run:
 
 	py setup.py
 
@@ -21,7 +21,7 @@ How to use:
 
 2. Run the test using the following code:
 
- py main.py
+	py main.py
 
 - This will run the main script and execute test 1 followed by test 2
 

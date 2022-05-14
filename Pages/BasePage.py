@@ -23,18 +23,26 @@ class BasePage():
         WebDriverWait(self.driver, 15).until(
             EC.element_to_be_clickable((by, element))).send_keys(text)
 
-
     def select_first_item_dropdown(self, text, element, by):
         dd_input = WebDriverWait(self.driver, 15).until(
             EC.element_to_be_clickable((by, element)))
-
         dd_input.send_keys(text)
-        time.sleep(2)
-        dd_input.send_keys(Keys.ARROW_DOWN)
         time.sleep(1)
+        dd_input.send_keys(Keys.ARROW_DOWN)
         dd_input.send_keys(Keys.ARROW_DOWN)
         time.sleep(1)
         dd_input.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+    def hover_to_and_click_element_by(self, element, by):
+        item = WebDriverWait(self.driver, 15).until(
+            EC.visibility_of_element_located((by, element)))
+        a = ActionChains(self.driver)
+        self.driver.execute_script("arguments[0].click();", item)
+        # a.move_by_offset(0,-100)
+        # time.sleep(3)
+        # a.move_to_element(item).click().click().perform()
+
 
 
 

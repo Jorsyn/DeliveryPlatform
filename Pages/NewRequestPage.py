@@ -21,8 +21,17 @@ class NewRequestPage(BasePage.BasePage):
         self.click_elemtent_by(Locators.accept_scenario_id, By.ID)
 
     def input_pickup_location(self, text):
-        WebDriverWait.until(EC.invisibility_of_element_located((By.ID, Locators.accept_scenario_id)))
+        WebDriverWait(self.driver, 5).until(EC.invisibility_of_element_located((By.ID, Locators.accept_scenario_id)))
         self.select_first_item_dropdown(text, Locators.pickup_location_id, By.ID)
 
     def input_dropoff_location(self, text):
         self.select_first_item_dropdown(text, Locators.dropoff_location_id, By.ID)
+
+    def select_mode_bike(self):
+        time.sleep(3)
+        self.hover_to_and_click_element_by(Locators.bike_button_xpath, By.XPATH)
+        # self.click_elemtent_by(Locators.bike_button_id, By.ID)
+
+    def start_request(self):
+        time.sleep(2)
+        self.click_elemtent_by(Locators.request_courier_button, By.ID)
