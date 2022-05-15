@@ -3,15 +3,15 @@ import unittest
 from selenium import webdriver
 import Pages.LoginPage as LoginPage
 import Pages.NewRequestPage as NewRequestPage
+import Pages.HistoryPage as HistoryPage
+import Resources.TestData as TestData
 
 
 print("Note: This script requires selenium and google chrome with a version matching a GC webdriver located in PATH to work")
 print("Google chrome webdriver version 100 it attached to this project")
 
-landingPage = "https://dashboard.sandbox.stuart.com/"
-pickup_location = "58 Avenue Simon Bolivar, 75019 Paris"
-dropoff_location = "3 Av. Simon Bolivar, 75020 Paris, France"
-
+landing_page = "https://dashboard.sandbox.stuart.com/"
+history_page = "https://dashboard.sandbox.stuart.com/history"
 
 # TODO remove password and email from here due to security issues in github?
 email = "strt.wa+test@gmail.com"
@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
         # browser should be loaded in maximized window
         self.driver.maximize_window()
         self.page = LoginPage.LoginPage(self.driver)
-        self.page.navigate_to(landingPage)
+        self.page.navigate_to(landing_page)
         self.page.input_email(email)
         self.page.input_password(password)
         self.page.click_login_button()
@@ -43,13 +43,25 @@ class Tests(unittest.TestCase):
         self.page = NewRequestPage.NewRequestPage(self.driver)
         self.page.accept_popup()
         self.page.choose_happy_path()
-        self.page.input_pickup_location(pickup_location)
-        self.page.input_dropoff_location(dropoff_location)
+        self.page.input_pickup_location(TestData.pickup_location)
+        self.page.input_dropoff_location(TestData.dropoff_location)
         self.page.select_mode_bike()
         self.page.start_request()
-
-        time.sleep(10)
+        self.page.validate_ongoing()
         print('Test case 1 finished successfully')
+
+    def test_2_validate_past_delivery(self):
+        self.page = HistoryPage.HistoryPage(self.driver)
+        self.page.navigate_to(history_page)
+        self.page.select_job(TestData.past_delivery_ID)
+        self.page.validate_pickup_location()
+        self.page.validate_dropoff_location()
+        self.page.validate_delivery_distance()
+        self.page.validate_total_amount()
+        self.page.validate_invoice_downloadable()
+        self.page.validate_pdf_title()
+
+        print('Test case 2 finished successfully')
 
 
 

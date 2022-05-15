@@ -11,15 +11,6 @@ import Pages.BasePage as BasePage
 
 class NewRequestPage(BasePage.BasePage):
 
-    def accept_popup(self):
-        self.click_elemtent_by(Locators.popup_xpath, By.XPATH)
-
-    def choose_happy_path(self):
-        self.click_elemtent_by(Locators.try_scenario_button_id, By.ID)
-        self.click_elemtent_by(Locators.scenario_dropdown_xpath, By.XPATH)
-        self.click_elemtent_by(Locators.happy_path_id, By.ID)
-        self.click_elemtent_by(Locators.accept_scenario_id, By.ID)
-
     def input_pickup_location(self, text):
         WebDriverWait(self.driver, 5).until(EC.invisibility_of_element_located((By.ID, Locators.accept_scenario_id)))
         self.select_first_item_dropdown(text, Locators.pickup_location_id, By.ID)
@@ -35,3 +26,8 @@ class NewRequestPage(BasePage.BasePage):
     def start_request(self):
         time.sleep(2)
         self.click_elemtent_by(Locators.request_courier_button, By.ID)
+
+    def validate_ongoing(self):
+        print("Number of ongoing requests should be greater than zero")
+        self.validate_number_greater_than_o(Locators.number_ongoing_requests_xpath, By.XPATH)
+

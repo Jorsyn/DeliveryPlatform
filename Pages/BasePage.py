@@ -1,10 +1,10 @@
 import time
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
+import Resources.Locators as Locators
 
 class BasePage():
     # this function is called every time a new object of the base class is created.
@@ -14,6 +14,16 @@ class BasePage():
 
     def navigate_to(self, page):
         self.driver.get(page)
+
+    def accept_popup(self):
+        self.click_elemtent_by(Locators.popup_xpath, By.XPATH)
+
+
+    def choose_happy_path(self):
+        self.click_elemtent_by(Locators.try_scenario_button_id, By.ID)
+        self.click_elemtent_by(Locators.scenario_dropdown_xpath, By.XPATH)
+        self.click_elemtent_by(Locators.happy_path_id, By.ID)
+        self.click_elemtent_by(Locators.accept_scenario_id, By.ID)
 
     def click_elemtent_by(self, element, by):
         WebDriverWait(self.driver, 15).until(
@@ -39,10 +49,19 @@ class BasePage():
             EC.visibility_of_element_located((by, element)))
         a = ActionChains(self.driver)
         self.driver.execute_script("arguments[0].click();", item)
-        # a.move_by_offset(0,-100)
-        # time.sleep(3)
-        # a.move_to_element(item).click().click().perform()
 
+
+    def validate_location(self, address, element, by):
+        location = WebDriverWait(self.driver, 15).until(
+            EC.visibility_of_element_located((by, element)))
+        print("Location should match:", address, "\nLocation found:", location.text)
+        assert location.text == address
+
+    def validate_number_greater_than_o(self, element, by):
+        item = WebDriverWait(self.driver, 15).until(
+            EC.visibility_of_element_located((by, element)))
+        print("Number is:", item.text)
+        assert float(item.text) > 0
 
 
 
