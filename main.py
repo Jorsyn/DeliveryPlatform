@@ -13,10 +13,6 @@ print("Google chrome webdriver version 100 it attached to this project")
 landing_page = "https://dashboard.sandbox.stuart.com/"
 history_page = "https://dashboard.sandbox.stuart.com/history"
 
-# TODO remove password and email from here due to security issues in github?
-email = "strt.wa+test@gmail.com"
-password = "Test!234"
-
 
 class Tests(unittest.TestCase):
     def setUp(self):
@@ -29,8 +25,8 @@ class Tests(unittest.TestCase):
         self.driver.maximize_window()
         self.page = LoginPage.LoginPage(self.driver)
         self.page.navigate_to(landing_page)
-        self.page.input_email(email)
-        self.page.input_password(password)
+        self.page.input_email(TestData.email)
+        self.page.input_password(TestData.password)
         self.page.click_login_button()
         # assert arriving in new page
 

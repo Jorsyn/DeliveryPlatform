@@ -6,8 +6,7 @@ password_id = "password"
 login_button_id = "logInButton"
 
 # Common
-# TODO remove text search and find identier, can fail in other languages
-popup_xpath = "//button[@class='CbaUlvx2 oUMO_2x9']/span[contains(text(),'Entendido')]"
+popup_xpath = "//button[@class='CbaUlvx2 oUMO_2x9' and @type='submit']"
 
 # New Request Page
 try_scenario_button_id = "ScenarioTooltipTryButton"
